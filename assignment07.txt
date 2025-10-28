@@ -1,0 +1,105 @@
+import java.util.*;
+
+public class GenericCounter {
+    // Checks if an integer is prime
+    private static boolean isPrime(int n) {
+        if (n < 2) return false;
+        for (int i = 2; i <= Math.sqrt(n); i++)
+            if (n % i == 0) return false;
+        return true;
+    }
+
+    // Checks if a string or number is palindrome
+    private static boolean isPalindrome(String s) {
+        int i = 0, j = s.length() - 1;
+        while (i < j) if (s.charAt(i++) != s.charAt(j--)) return false;
+        return true;
+    }
+
+    // Generic method: counts elements fulfilling predicate
+    public static <T> int count(Collection<T> coll, Predicate<T> pred) {
+        int cnt = 0;
+        for (T x : coll) if (pred.test(x)) cnt++;
+        return cnt;
+    }
+
+    // Java's Predicate functional interface
+    interface Predicate<T> {
+        boolean test(T t);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Number or String collection
+        System.out.print("Choose type: 1.Number 2.String: ");
+        int typ = sc.nextInt();
+        sc.nextLine(); // consume newline
+
+        System.out.print("Enter number of elements: ");
+        int n = sc.nextInt();
+        sc.nextLine();
+
+        if (typ == 1) {
+            ArrayList<Integer> nums = new ArrayList<>();
+            System.out.println("Enter integers:");
+            for (int i = 0; i < n; i++) nums.add(sc.nextInt());
+
+            System.out.print("Property: 1.Even 2.Odd 3.Prime: ");
+            int p = sc.nextInt();
+
+            switch (p) {
+                case 1:
+                    System.out.println("Even: " + count(nums, x -> x % 2 == 0));
+                    break;
+                case 2:
+                    System.out.println("Odd: " + count(nums, x -> x % 2 != 0));
+                    break;
+                case 3:
+                    System.out.println("Prime: " + count(nums, GenericCounter::isPrime));
+                    break;
+            }
+        } else {
+            ArrayList<String> strs = new ArrayList<>();
+            System.out.println("Enter strings:");
+            for (int i = 0; i < n; i++) strs.add(sc.nextLine());
+
+            System.out.print("Property: 1.Palindrome: ");
+            int p = sc.nextInt();
+
+            if (p == 1) {
+                System.out.println("Palindrome count: " + count(strs, GenericCounter::isPalindrome));
+            }
+        }
+        sc.close();
+    }
+}
+
+
+
+
+Output
+
+
+OP01
+Choose type: 1.Number 2.String: 1
+Enter number of elements: 5
+Enter integers:
+5
+9
+22
+15
+17
+Property: 1.Even 2.Odd 3.Prime: 3
+Prime: 2
+
+OP02
+Choose type: 1.Number 2.String: 2
+Enter number of elements: 4
+Enter strings:
+madam
+abba
+hello
+noon
+Property: 1.Palindrome: 1
+Palindrome count: 3
