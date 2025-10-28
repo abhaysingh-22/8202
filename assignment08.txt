@@ -1,0 +1,225 @@
+import java.io.*;
+import java.util.*;
+
+class Student implements Serializable {
+    String studentId, name, rollNo, sClass, marks, address;
+    public Student(String studentId, String name, String rollNo, String sClass, String marks, String address) {
+        this.studentId = studentId;
+        this.name = name;
+        this.rollNo = rollNo;
+        this.sClass = sClass;
+        this.marks = marks;
+        this.address = address;
+    }
+    public String toString() {
+        return studentId + " | " + name + " | " + rollNo + " | " + sClass + " | " + marks + " | " + address;
+    }
+}
+
+public class StudentDB {
+    static final String FILE = "students.dat";
+
+    public static void createDatabase() throws IOException {
+        ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(FILE));
+        out.close();
+        System.out.println("New database created.");
+    }
+
+    public static void displayDatabase() throws IOException, ClassNotFoundException {
+        ObjectInputStream in;
+        try { in = new ObjectInputStream(new FileInputStream(FILE)); }
+        catch (FileNotFoundException e) { System.out.println("No records found."); return; }
+        try {
+            while (true) {
+                Student s = (Student) in.readObject();
+                System.out.println(s);
+            }
+        } catch (EOFException e) {}
+        in.close();
+    }
+
+    public static void addRecord(Student s) throws IOException, ClassNotFoundException {
+        ArrayList<Student> list = getRecords();
+        list.add(s);
+        ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(FILE));
+        for (Student x : list) out.writeObject(x);
+        out.close();
+    }
+
+    public static ArrayList<Student> getRecords() throws IOException, ClassNotFoundException {
+        ArrayList<Student> list = new ArrayList<>();
+        ObjectInputStream in;
+        try { in = new ObjectInputStream(new FileInputStream(FILE)); }
+        catch (FileNotFoundException e) { return list; }
+        try {
+            while (true) {
+                Student s = (Student) in.readObject();
+                list.add(s);
+            }
+        } catch (EOFException e) {}
+        in.close();
+        return list;
+    }
+
+    public static void deleteRecord(String studentId) throws IOException, ClassNotFoundException {
+        ArrayList<Student> list = getRecords();
+        boolean found = false;
+        Iterator<Student> it = list.iterator();
+        while (it.hasNext()) {
+            if (it.next().studentId.equals(studentId)) {
+                it.remove();
+                found = true;
+            }
+        }
+        ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(FILE));
+        for (Student x : list) out.writeObject(x);
+        out.close();
+        if (found) System.out.println("Deleted."); else System.out.println("Student not found.");
+    }
+
+    public static void updateRecord(String studentId, Scanner sc) throws IOException, ClassNotFoundException {
+        ArrayList<Student> list = getRecords();
+        boolean found = false;
+        for (Student s : list) {
+            if (s.studentId.equals(studentId)) {
+                System.out.print("Enter new Name: "); s.name = sc.nextLine();
+                System.out.print("Enter new Roll No: "); s.rollNo = sc.nextLine();
+                System.out.print("Enter new Class: "); s.sClass = sc.nextLine();
+                System.out.print("Enter new Marks: "); s.marks = sc.nextLine();
+                System.out.print("Enter new Address: "); s.address = sc.nextLine();
+                found = true;
+                break;
+            }
+        }
+        ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(FILE));
+        for (Student x : list) out.writeObject(x);
+        out.close();
+        if (found) System.out.println("Updated."); else System.out.println("Student not found.");
+    }
+
+    public static void searchRecord(String studentId) throws IOException, ClassNotFoundException {
+        ArrayList<Student> list = getRecords();
+        for (Student s : list) {
+            if (s.studentId.equals(studentId)) {
+                System.out.println("Found: " + s);
+                return;
+            }
+        }
+        System.out.println("Student not found.");
+    }
+
+    public static void main(String[] args) throws Exception {
+        Scanner sc = new Scanner(System.in);
+        while (true) {
+            System.out.println("\n---MENU---");
+            System.out.println("1.Create Database");
+            System.out.println("2.Display Database");
+            System.out.println("3.Add Record");
+            System.out.println("4.Delete Record");
+            System.out.println("5.Update Record");
+            System.out.println("6.Search Record");
+            System.out.println("9.Exit");
+            System.out.print("Enter choice: ");
+            int ch = Integer.parseInt(sc.nextLine());
+            switch (ch) {
+                case 1: createDatabase(); break;
+                case 2: displayDatabase(); break;
+                case 3:
+                    System.out.print("Student Id: "); String id = sc.nextLine();
+                    System.out.print("Name: "); String name = sc.nextLine();
+                    System.out.print("Roll No: "); String roll = sc.nextLine();
+                    System.out.print("Class: "); String cls = sc.nextLine();
+                    System.out.print("Marks: "); String marks = sc.nextLine();
+                    System.out.print("Address: "); String addr = sc.nextLine();
+                    Student s = new Student(id, name, roll, cls, marks, addr);
+                    addRecord(s); System.out.println("Added.");
+                    break;
+                case 4:
+                    System.out.print("Student Id to delete: "); id = sc.nextLine();
+                    deleteRecord(id);
+                    break;
+                case 5:
+                    System.out.print("Student Id to update: "); id = sc.nextLine();
+                    updateRecord(id, sc);
+                    break;
+                case 6:
+                    System.out.print("Student Id to search: "); id = sc.nextLine();
+                    searchRecord(id);
+                    break;
+                case 9: System.exit(0);
+            }
+        }
+    }
+}
+
+
+
+
+Output
+
+---MENU---
+1.Create Database
+2.Display Database
+3.Add Record
+4.Delete Record
+5.Update Record
+6.Search Record
+9.Exit
+Enter choice: 1
+New database created.
+
+---MENU---
+Enter choice: 3
+Student Id: S001
+Name: Rajesh Kumar
+Roll No: 21
+Class: XII-A
+Marks: 89
+Address: Lucknow
+Added.
+
+---MENU---
+Enter choice: 3
+Student Id: S002
+Name: Swati Singh
+Roll No: 33
+Class: XII-B
+Marks: 93
+Address: Kanpur
+Added.
+
+---MENU---
+Enter choice: 2
+S001 | Rajesh Kumar | 21 | XII-A | 89 | Lucknow
+S002 | Swati Singh | 33 | XII-B | 93 | Kanpur
+
+---MENU---
+Enter choice: 6
+Student Id to search: S001
+Found: S001 | Rajesh Kumar | 21 | XII-A | 89 | Lucknow
+
+---MENU---
+Enter choice: 4
+Student Id to delete: S002
+Deleted.
+
+---MENU---
+Enter choice: 2
+S001 | Rajesh Kumar | 21 | XII-A | 89 | Lucknow
+
+---MENU---
+Enter choice: 5
+Student Id to update: S001
+Enter new Name: Rakesh Kumar
+Enter new Roll No: 25
+Enter new Class: XII-A
+Enter new Marks: 91
+Enter new Address: Varanasi
+Updated.
+
+---MENU---
+Enter choice: 2
+S001 | Rakesh Kumar | 25 | XII-A | 91 | Varanasi
+
+---MENU---
+Enter choice: 9
