@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumina Goods | Minimalist Living</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body class="no-scroll">
+    <div class="viewport-wrapper">
+        <header class="navbar">
+            <h1>Lumina.</h1>
+            <nav>
+                <ul>
+                    <li><a href="#">Arrivals</a></li>
+                    <li><a href="#shop">Shop</a></li>
+                    <li><a href="#collections">Collections</a></li>
+                </ul>
+            </nav>
+            <div class="nav-actions">
+                <button class="btn-outline btn-small">Cart (0)</button>
+            </div>
+        </header>
+        
+        <main class="main-view">
+            <section class="hero-section">
+                <span class="overline">Curated Selection</span>
+                <h2 class="hero-title">Elevate Your Everyday Life.</h2>
+                <p class="hero-subtitle">Explore a collection of thoughtfully crafted essentials designed to bring beauty and function to your sacred spaces.</p>
+                <div class="hero-actions">
+                    <button class="btn-primary">Explore Collection</button>
+                    <p class="hero-note">Enjoy free shipping worldwide.</p>
+                </div>
+            </section>
+
+            <section class="products-section">
+                <!-- Perfect 2x2 Grid fitting exactly in viewport -->
+                <div class="product-card">
+                    <img class="img-placeholder" src="https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=500&q=80" alt="Ceramic Catchall" style="object-fit: cover; width: 100%;">
+                    <div class="card-content">
+                        <div>
+                            <h3>Ceramic Catchall</h3>
+                            <p class="desc">Matte finish tray.</p>
+                        </div>
+                        <div class="price-row">
+                            <p class="price">$35.00</p>
+                            <button class="btn-icon">+</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img class="img-placeholder" src="https://images.unsplash.com/photo-1580301762395-21ce84d00bc6?w=500&q=80" alt="Cotton Throw" style="object-fit: cover; width: 100%;">
+                    <div class="card-content">
+                        <div>
+                            <h3>Cotton Throw</h3>
+                            <p class="desc">Organic, breathable weave.</p>
+                        </div>
+                        <div class="price-row">
+                            <p class="price">$85.00</p>
+                            <button class="btn-icon">+</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img class="img-placeholder" src="https://images.unsplash.com/photo-1563861826100-9cb868fdbe1c?w=500&q=80" alt="Wall Clock" style="object-fit: cover; width: 100%;">
+                    <div class="card-content">
+                        <div>
+                            <h3>Wall Clock</h3>
+                            <p class="desc">Silent sweeping movement.</p>
+                        </div>
+                        <div class="price-row">
+                            <p class="price">$60.00</p>
+                            <button class="btn-icon">+</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img class="img-placeholder" src="https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?w=500&q=80" alt="Artisan Board" style="object-fit: cover; width: 100%;">
+                    <div class="card-content">
+                        <div>
+                            <h3>Artisan Board</h3>
+                            <p class="desc">Hand-carved oak board.</p>
+                        </div>
+                        <div class="price-row">
+                            <p class="price">$48.00</p>
+                            <button class="btn-icon">+</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

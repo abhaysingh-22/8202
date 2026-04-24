@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Store | Session Cart</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container header-content">
+            <div class="logo">TechStore</div>
+            <div class="cart-info">
+                🛒 <span id="cart-count">0 items</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="container main-layout">
+        <section class="products-list">
+            <h2>Featured Products</h2>
+            <div class="product-grid">
+                <div class="product-item">
+                    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&q=80" alt="Wireless Headphones" class="product-img">
+                    <h3>Wireless Headphones</h3>
+                    <p class="price">$120.00</p>
+                    <button class="add-btn" data-id="1" data-name="Wireless Headphones" data-price="120">Add to Cart</button>
+                </div>
+                
+                <div class="product-item">
+                    <img src="https://images.unsplash.com/photo-1595225476474-87563907a212?w=500&q=80" alt="Mechanical Keyboard" class="product-img">
+                    <h3>Mechanical Keyboard</h3>
+                    <p class="price">$150.00</p>
+                    <button class="add-btn" data-id="2" data-name="Mechanical Keyboard" data-price="150">Add to Cart</button>
+                </div>
+
+                <div class="product-item">
+                    <img src="https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcSg8j6YuxjU8xwF0nCPwZ3IhKV95esKPms0arxFgSgU-EgKHHy2R8h7bQX-if2d1hYYGZmDF5Lr8BXj8839wBcB99yMHZ-RNki9udywu1P15atoNtP_v9fBEcQ" alt="Gaming Mouse" class="product-img">
+                    <h3>Gaming Mouse</h3>
+                    <p class="price">$80.00</p>
+                    <button class="add-btn" data-id="3" data-name="Gaming Mouse" data-price="80">Add to Cart</button>
+                </div>
+
+                <div class="product-item">
+                    <img src="https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=500&q=80" alt="4K Monitor" class="product-img">
+                    <h3>4K Monitor</h3>
+                    <p class="price">$300.00</p>
+                    <button class="add-btn" data-id="4" data-name="4K Monitor" data-price="300">Add to Cart</button>
+                </div>
+            </div>
+        </section>
+
+        <aside class="cart-sidebar">
+            <h2>Your Cart</h2>
+            <div id="cart-items">
+                <!-- Cart items rendered here -->
+                <p class="empty-msg">Cart is empty</p>
+            </div>
+            <div class="cart-summary">
+                <div class="total-row">
+                    <span>Total:</span>
+                    <span id="cart-total">$0.00</span>
+                </div>
+                <button id="checkout-btn" class="checkout-btn">Checkout Now</button>
+            </div>
+        </aside>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
