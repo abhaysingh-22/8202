@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spice Garden - Authentic Restaurant</title>
+
+    <!-- Simulating Google Fonts which Elementor usually loads -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Playfair+Display:wght@700&display=swap"
+        rel="stylesheet" />
+    <!-- FontAwesome for Social Media Icons (simulating a plugin like AddToAny) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        :root {
+            --primary: #ff6b6b;
+            --secondary: #4ecdc4;
+            --dark: #2d3436;
+            --light: #f5f6fa;
+            --heading-font: "Playfair Display", serif;
+            --body-font: "Roboto", sans-serif;
+        }
+
+        body {
+            font-family: var(--body-font);
+            margin: 0;
+            padding: 0;
+            background-color: var(--light);
+            color: var(--dark);
+            scroll-behavior: smooth;
+        }
+
+        /* Elementor-style Section */
+        .elementor-section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--dark), #4b6584);
+            color: white;
+            text-align: center;
+            padding: 150px 20px;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-family: var(--heading-font);
+            font-size: 4rem;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        /* Social Media Plugin Simulation (e.g. AddToAny Share Buttons) */
+        .social-plugin {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition:
+                transform 0.3s,
+                box-shadow 0.3s;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .facebook {
+            background: #3b5998;
+        }
+
+        .instagram {
+            background: radial-gradient(circle at 30% 107%,
+                    #fdf497 0%,
+                    #fdf497 5%,
+                    #fd5949 45%,
+                    #d6249f 60%,
+                    #285aeb 90%);
+        }
+
+        .linkedin {
+            background: #0077b5;
+        }
+
+        /* Sticky Nav (Simulating an Elementor Header Template) */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            gap: 30px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .navbar a:hover {
+            color: var(--primary);
+        }
+
+        /* Menu Grid (Elementor Columns Simulation) */
+        .section-title {
+            text-align: center;
+            font-family: var(--heading-font);
+            font-size: 3rem;
+            margin-bottom: 50px;
+            color: var(--dark);
+        }
+
+        .section-title::after {
+            content: "";
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+        }
+
+        .menu-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition:
+                transform 0.3s,
+                box-shadow 0.3s;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .menu-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .menu-info {
+            padding: 25px;
+            text-align: center;
+        }
+
+        .menu-info h3 {
+            margin: 0 0 10px 0;
+            font-family: var(--heading-font);
+            font-size: 1.8rem;
+        }
+
+        .menu-info p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .menu-price {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1.4rem;
+        }
+
+        /* Form Plugin Simulation (e.g. WPForms / Contact Form 7) */
+        .wpforms-container {
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            box-sizing: border-box;
+            font-family: inherit;
+            font-size: 1rem;
+            background: #fdfdfd;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .submit-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            width: 100%;
+            transition:
+                background 0.3s,
+                transform 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .submit-btn:hover {
+            background: #ff5252;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            background: #1e272e;
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+            margin-top: 80px;
+        }
+
+        footer h2 {
+            font-family: var(--heading-font);
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        footer p {
+            color: #b2bec3;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Elementor Hero Section -->
+    <div class="hero">
+        <h1>Spice Garden</h1>
+        <p>Fresh • Authentic • Delicious</p>
+
+        <!-- Social Media Plugin Simulation -->
+        <div class="social-plugin">
+            <a href="#" class="social-icon facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" class="social-icon instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="social-icon linkedin"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+    </div>
+
+    <!-- Header Builder Simulation -->
+    <nav class="navbar">
+        <a href="#starters">Starters</a>
+        <a href="#main">Main Course</a>
+        <a href="#drinks">Drinks</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <!-- Elementor Sections with Columns -->
+    <div class="elementor-section" id="starters">
+        <h2 class="section-title">Starters</h2>
+        <div class="menu-grid">
+            <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80"
+                    alt="Paneer Tikka" />
+                <div class="menu-info">
+                    <h3>Paneer Tikka</h3>
+                    <p>Grilled paneer with spices</p>
+                    <div class="menu-price">₹180</div>
+                </div>
+            </div>
+            <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1625943553852-781c6dd46faa?auto=format&fit=crop&w=800&q=80"
+                    alt="Spring Rolls" />
+                <div class="menu-info">
+                    <h3>Spring Rolls</h3>
+                    <p>Crispy veg rolls</p>
+                    <div class="menu-price">₹120</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="elementor-section" id="main">
+        <h2 class="section-title">Main Course</h2>
+        <div class="menu-grid">
+            <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80"
+                    alt="Veg Biryani" />
+                <div class="menu-info">
+                    <h3>Veg Biryani</h3>
+                    <p>Aromatic rice dish</p>
+                    <div class="menu-price">₹200</div>
+                </div>
+            </div>
+            <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1728910107534-e04e261768ae?auto=format&fit=crop&w=800&q=80"
+                    alt="Butter Chicken" />
+                <div class="menu-info">
+                    <h3>Butter Chicken</h3>
+                    <p>Creamy tomato gravy</p>
+                    <div class="menu-price">₹280</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="elementor-section" id="drinks">
+        <h2 class="section-title">Drinks</h2>
+        <div class="menu-grid">
+            <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1498804103079-a6351b050096?auto=format&fit=crop&w=800&q=80"
+                    alt="Cold Coffee" />
+                <div class="menu-info">
+                    <h3>Cold Coffee</h3>
+                    <p>Chilled creamy coffee</p>
+                    <div class="menu-price">₹90</div>
+                </div>
+            </div>
+            <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=800&q=80"
+                    alt="Lemon Soda" />
+                <div class="menu-info">
+                    <h3>Lemon Soda</h3>
+                    <p>Fresh lime drink</p>
+                    <div class="menu-price">₹50</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WPForms Simulation -->
+    <div class="elementor-section" id="contact" style="background-color: #ffffff">
+        <h2 class="section-title">Contact Us</h2>
+        <div class="wpforms-container">
+            <form action="#" method="POST" onsubmit="
+            event.preventDefault();
+            alert('Form submitted successfully!');
+          ">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" placeholder="Enter your full name" required />
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="Enter your email address" required />
+                </div>
+                <div class="form-group">
+                    <label for="message">Your Message</label>
+                    <textarea id="message" rows="5" placeholder="How can we help you?" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Google Map Embed (Micro sites simulation) -->
+    <div class="elementor-section">
+        <h2 class="section-title">Find Us</h2>
+        <div style="
+          border-radius: 20px;
+          overflow: hidden;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+          margin-top: 20px;
+        ">
+            <iframe src="https://maps.google.com/maps?q=Sangli&t=&z=13&ie=UTF8&iwloc=&output=embed" width="100%"
+                height="450" style="border: 0" allowfullscreen="" loading="lazy">
+            </iframe>
+        </div>
+    </div>
+
+    <footer>
+        <h2>Spice Garden</h2>
+        <p>Authentic Indian Cuisine</p>
+        <p>Sangli, Maharashtra</p>
+        <p>Open Daily: 11:00 AM – 11:00 PM</p>
+        <p><i class="fa-solid fa-phone"></i> +91 98765 43210</p>
+        <p style="margin-top: 40px; font-size: 0.9rem; color: #7f8fa6">
+            &copy; 2026 Spice Garden. Designed simulating WordPress, Elementor, and
+            Plugins using pure HTML & CSS.
+        </p>
+    </footer>
+</body>
+
+</html>
