@@ -73,12 +73,12 @@ public:
     }
 };
 
-// Pentagon class
-class Pentagon : public Shape {
+// Hexagon class
+class Hexagon : public Shape {
 public:
-    Pentagon() {
-        for (int i = 0; i < 5; i++) {
-            float angle = (i * 72.0f - 90.0f) * PI / 180.0f;
+    Hexagon() {
+        for (int i = 0; i < 6; i++) {
+            float angle = (i * 60.0f - 90.0f) * PI / 180.0f;
             float x = 70 * cos(angle);
             float y = 70 * sin(angle);
             vertices.push_back(Point(x, y));
@@ -113,8 +113,8 @@ public:
 };
 
 // Global shape
-Pentagon pentagon;
-Shape* currentShape = &pentagon;
+Hexagon hexagon;
+Shape* currentShape = &hexagon;
 
 void display() {
     glClear(GL_COLOR_BUFFER_BIT);
@@ -209,7 +209,7 @@ int main(int argc, char** argv) {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
     glutInitWindowSize(WIDTH, HEIGHT);
-    glutCreateWindow("2D Transformations - Pentagon");
+    glutCreateWindow("2D Transformations - Hexagon");
 
     glClearColor(1, 1, 1, 1);
     glMatrixMode(GL_PROJECTION);

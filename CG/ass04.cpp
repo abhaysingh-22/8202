@@ -30,7 +30,7 @@ void generateRandomLines() {
         float y1 = rand() % HEIGHT;
         float x2 = rand() % WIDTH;
         float y2 = rand() % HEIGHT;
-        randomLines.push_back({{x1, y1}, {x2, y2}});
+        randomLines.push_back({{x2, y2}, {x1, y1}});
     }
 }
 
