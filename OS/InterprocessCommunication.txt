@@ -1,0 +1,70 @@
+#include <iostream>
+#include <fstream>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <cstring>
+using namespace std;
+
+int main() {
+    mkfifo("pipe1", 0666);
+    mkfifo("pipe2", 0666);
+
+    if (fork() == 0) {
+        // Second process
+        char buf[1000];
+        int fd = open("pipe1", O_RDONLY);
+        int n = read(fd, buf, sizeof(buf) - 1);
+        buf[n] = '\0';
+        close(fd);
+
+        int chars = strlen(buf), words = 0, lines = 0;
+        bool inWord = false;
+
+        for (int i = 0; i < chars; i++) {
+            if (buf[i] == '\n') lines++;
+
+            if (buf[i] == ' ' || buf[i] == '\n' || buf[i] == '\t')
+                inWord = false;
+            else if (!inWord) {
+                words++;
+                inWord = true;
+            }
+        }
+
+        ofstream file("output.txt");
+        file << "Characters: " << chars << "\n";
+        file << "Words: " << words << "\n";
+        file << "Lines: " << lines << "\n";
+        file.close();
+
+        int fd2 = open("pipe2", O_WRONLY);
+        ifstream result("output.txt");
+        string s((istreambuf_iterator<char>(result)),
+                  istreambuf_iterator<char>());
+        write(fd2, s.c_str(), s.size());
+        close(fd2);
+    }
+    else {
+        // First process
+        cout << "Enter sentences (end input with # on a new line):\n";
+        string input, all;
+
+        while (getline(cin, input) && input != "#")
+            all += input + "\n";
+
+        int fd = open("pipe1", O_WRONLY);
+        write(fd, all.c_str(), all.size());
+        close(fd);
+
+        int fd2 = open("pipe2", O_RDONLY);
+        char buf[1000];
+        int n = read(fd2, buf, sizeof(buf) - 1);
+        buf[n] = '\0';
+        close(fd2);
+
+        cout << "\nResult from second process:\n" << buf;
+    }
+
+    return 0;
+}

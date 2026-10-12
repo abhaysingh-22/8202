@@ -1,0 +1,81 @@
+#include <iostream>
+#include <unistd.h>
+#include <sys/wait.h>
+using namespace std;
+
+int main() {
+    int a[20], n, i, j, t;
+
+    cout << "Enter n: ";
+    cin >> n;
+
+    cout << "Enter elements: ";
+    for (i = 0; i < n; i++) cin >> a[i];
+
+    pid_t pid = fork();
+
+    if (pid == 0) {
+        // Child sorts
+        for (i = 0; i < n; i++)
+            for (j = i + 1; j < n; j++)
+                if (a[i] > a[j]) {
+                    t = a[i]; a[i] = a[j]; a[j] = t;
+                }
+
+        cout << "Child sorted: ";
+        for (i = 0; i < n; i++) cout << a[i] << " ";
+        cout << endl;
+    } else if (pid > 0) {
+        wait(NULL);
+
+        // Parent sorts
+        for (i = 0; i < n; i++)
+            for (j = i + 1; j < n; j++)
+                if (a[i] > a[j]) {
+                    t = a[i]; a[i] = a[j]; a[j] = t;
+                }
+
+        cout << "Parent sorted: ";
+        for (i = 0; i < n; i++) cout << a[i] << " ";
+        cout << endl;
+    }
+
+    return 0;
+}
+
+
+
+
+Zombie Process (C++)
+
+#include <iostream>
+#include <unistd.h>
+using namespace std;
+
+int main() {
+    if (fork() == 0) {
+        cout << "Child exiting\n";
+    } else {
+        sleep(10);
+        cout << "Parent exiting\n";
+    }
+    return 0;
+}
+
+
+Orphan Process (C++)
+
+#include <iostream>
+#include <unistd.h>
+using namespace std;
+
+int main() {
+    if (fork() == 0) {
+        sleep(5);
+        cout << "Child PID: " << getpid() << endl;
+        cout << "Parent PID: " << getppid() << endl;
+    } else {
+        cout << "Parent exiting\n";
+    }
+    return 0;
+}

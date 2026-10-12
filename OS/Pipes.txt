@@ -1,0 +1,49 @@
+#include <iostream>
+#include <unistd.h>
+#include <sys/wait.h>
+#include <fstream>
+using namespace std;
+
+int main() {
+    int p1[2], p2[2];
+    pipe(p1);
+    pipe(p2);
+
+    if (fork() == 0) {
+        // Child process
+        close(p1[1]);
+        close(p2[0]);
+
+        char filename[100];
+        read(p1[0], filename, sizeof(filename));
+        close(p1[0]);
+
+        ifstream file(filename);
+        string content((istreambuf_iterator<char>(file)),
+                        istreambuf_iterator<char>());
+
+        write(p2[1], content.c_str(), content.size());
+        close(p2[1]);
+    }
+    else {
+        // Parent process
+        close(p1[0]);
+        close(p2[1]);
+
+        char filename[100];
+        cout << "Enter file path: ";
+        cin.getline(filename, 100);
+
+        write(p1[1], filename, sizeof(filename));
+        close(p1[1]);
+
+        char buffer[1024];
+        int n;
+        cout << "\nFile contents:\n";
+
+        while ((n = read(p2[0], buffer, sizeof(buffer))) > 0)
+            cout.write(buffer, n);
+
+        close(p2[0]);
+        wait(NULL);
+    }

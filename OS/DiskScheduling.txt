@@ -1,0 +1,79 @@
+#include <iostream>
+#include <algorithm>
+#include <cmath>
+using namespace std;
+
+int main() {
+    int n, head, diskSize;
+    int a[100], b[100];
+
+    cout << "Enter number of requests: ";
+    cin >> n;
+
+    cout << "Enter request queue: ";
+    for (int i = 0; i < n; i++) cin >> a[i];
+
+    cout << "Enter initial head position: ";
+    cin >> head;
+
+    cout << "Enter disk size: ";
+    cin >> diskSize;
+
+    // SSTF
+    copy(a, a + n, b);
+    int pos = head, total = 0;
+    bool done[100] = {};
+
+    for (int i = 0; i < n; i++) {
+        int idx = -1, d = 999999;
+        for (int j = 0; j < n; j++)
+            if (!done[j] && abs(b[j] - pos) < d)
+                d = abs(b[j] - pos), idx = j;
+
+        done[idx] = true;
+        total += abs(b[idx] - pos);
+        pos = b[idx];
+    }
+    cout << "\nSSTF Total Head Movement: " << total;
+
+    // Sort requests
+    sort(a, a + n);
+    total = 0;
+    pos = head;
+
+    // SCAN (towards higher cylinders first)
+    int i = 0;
+    while (i < n && a[i] < head) i++;
+
+    for (int j = i; j < n; j++)
+        total += abs(a[j] - pos), pos = a[j];
+
+    total += abs((diskSize - 1) - pos);
+    pos = diskSize - 1;
+
+    for (int j = i - 1; j >= 0; j--)
+        total += abs(a[j] - pos), pos = a[j];
+
+    cout << "\nSCAN Total Head Movement: " << total;
+
+    // C-LOOK
+    total = 0;
+    pos = head;
+    i = 0;
+    while (i < n && a[i] < head) i++;
+
+    for (int j = i; j < n; j++)
+        total += abs(a[j] - pos), pos = a[j];
+
+    if (i > 0) {
+        total += abs(pos - a[0]);
+        pos = a[0];
+
+        for (int j = 1; j < i; j++)
+            total += abs(a[j] - pos), pos = a[j];
+    }
+
+    cout << "\nC-LOOK Total Head Movement: " << total << endl;
+
+    return 0;
+}
